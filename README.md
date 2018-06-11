@@ -4,11 +4,9 @@
 > The submission includes a model.py file, drive.py, model.h5 a writeup report and video.mp4.
 
 My project includes the following files:
-| File name | Description |
-| ------ | ------ |
-| model.ipynb | this file contains the code for creating the Keras model and training the model. |
-| Drive.py | this file is using for driving the car in the autonomous mode and I have change the body of this file a bit because my logic for creating the model. |
-| Model.h5 | this is the trained model |
+- model.ipynb : this file contains the code for creating the Keras model and training the model.
+- Drive.py : this file is using for driving the car in the autonomous mode and I have change the body of this file a bit because my logic for creating the model.
+- Model.h5 : this is the trained model
 
 ## Quality of Code
 ### Is the code functional?
@@ -41,17 +39,105 @@ The layers of model are explained in one of the next sections in detail. The mod
 - Fully connected layer
 - Maxpooling
 - Dropout
+### Has an attempt been made to reduce overfitting of the model?
+> Train/validation/test splits have been used, and the model uses dropout layers or other methods to reduce overfitting.
 
 I have experimented the dropout in different position of the model to test them in different position of code.
 The Maxpooling layer with convolutional layer and Dropout with fully connected layer had the better result to prevent overfitting.
 
+[![Parisa Moosavinezhad](https://github.com/ParisaMousavi/CloneDrivingBehavior/blob/master/docpics/Histogram.png)](www.linkedin.com/in/parisa-moosavinezhad-48b4b149)
 
-### Has an attempt been made to reduce overfitting of the model?
-> Train/validation/test splits have been used, and the model uses dropout layers or other methods to reduce overfitting.
+For splitting the training dataset into training and testing subset the train_test_split function of sklearn.model_selection has been used.
+```sh
+X_train, X_test , Y_train, Y_test = train_test_split(X_train, Y_train, test_size=0.2, random_state=0)
+```
+And for using the test subset I hanged to the model.fit function as follows to use the test subset for validating the model:
+```sh
+history_object = model.fit(X_train, Y_train, validation_split = 0.2,shuffle = True, epochs = 5 , verbose=1 , batch_size=128 ,validation_data=(X_test, Y_test))
+```
 ### Have the model parameters been tuned appropriately?
 > Learning rate parameters are chosen with explanation, or an Adam optimizer is used.
+I have used the Adam optimizer as input parameter of compile function.
+```sh
+model.compile(loss='mse', optimizer='adam')
+```
+These are the default parameters of the Adam optimizer:
+lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False
+- lr: float >= 0. Learning rate.
+- beta_1: float, 0 < beta < 1. Generally close to 1.
+- beta_2: float, 0 < beta < 1. Generally close to 1.
+- epsilon: float >= 0. Fuzz factor. If None, defaults to K.epsilon().
+- decay: float >= 0. Learning rate decay over each update.
+- amsgrad: boolean. Whether to apply the AMSGrad variant of this algorithm from the paper "On the Convergence of Adam and Beyond".
+
+The parameters that I have tuned is batch_size. The default value of the batch_size is 32 but I have tuned it to 128.   
+```sh
+history_object = model.fit(X_train, Y_train, validation_split = 0.2,shuffle = True, epochs = 5 , verbose=1 , batch_size=128)
+```
 ### Is the training data chosen appropriately?
 > Training data has been chosen to induce the desired behavior in the simulation (i.e. keeping the car on the track).
+
+For the training data the csv file and the captured images have been used. The training images, which I have used are the Udacity’s captured data because I couldn’t drive the car exactly in the middle of the road. 
+I have used the center, left and right images and their steering value. According to the Udacity learning material I should have considered 0.2 to adjust the steering measurement for the side camera images. In the following are the steps to read and load data to dataset.
+```sh
+images = []
+measurements = []
+```
+In first step I have opened csv file with the open built-in function.  
+```sh
+open('./img/driving_log.csv')
+```
+Second, I read the csv file with reader function of csv and assign the output to reader variable.
+```sh
+reader = csv.reader(csvfile)
+```
+Third, I used for loop and read all lines of csv file line by line and append each line to a list variable --called lines -- to use for further purposes, which will be explained later.
+```sh
+for line in reader:
+    lines.append(line)
+```
+I extract four values from each row/line of csv file – name of center, left and right image and steering value. Since the left and right images need adjustment I have summed 0.2 to steering value or subtracted 0.2 from the steering value.
+```sh
+for line in lines1:
+    for i in range(3):
+        source_path = line[i]
+        filename = source_path.split('\\')[-1]
+        current_path = './img/round1/' + filename.strip()
+        
+        image = plt.imread(current_path)
+        images.append(resize(convert_hsv(image)))
+        if i == 0 :
+            measurement = float(line[3])
+        elif i==1 :
+            measurement = float(line[3]) + 0.2
+        elif i== 2:
+            measurement = float(line[3]) - 0.2
+        
+        measurements.append(measurement)
+print(current_path)
+```
+I have only used two different csv files. One of the is Udacity data. In this training data as mentioned in learning materials we have often left curves. I wanted to augment the training data, therefore I turned the car and drove in another direction to have CW curves.
+One more thing that I have done is changing the color space technics from previous projects and spatial techniques to change the size of the images.
+```sh
+# The original shape of image is (160x320) and it will be resized to (16x32) 
+def resize(img):
+    return cv2.resize(img[:,:,1],(32,16))
+```
+I have used the cv2.resize because of memory efficiency and if we look at performance, each epoch takes only 2 seconds.
+```sh
+Epoch 1/5
+19677/19677 [==============================] - 2s 112us/step - loss: 0.0289 - val_loss: 0.0246
+```
+Another code line that I have changed is in drive.py. I use the image size of 16 row and 32 columns, therefore I have resized the image which is passed to model.predict function.
+```sh
+image_array = np.asarray(image)
+myimage = image_array[None, :, :, :]
+
+#resize the image to my size 16 x 32
+myimage = ( cv2.resize((cv2.cvtColor(myimage[0], cv2.COLOR_RGB2HSV))[:,:,1],(32,16))).reshape(1,16,32,1)
+            
+steering_angle = float(model.predict(myimage, batch_size=1))
+```
 ## Architecture and Training Documentation
 ### Is the solution design documented?
 > The README thoroughly discusses the approach taken for deriving and designing a model architecture fit for solving the given problem.
@@ -62,179 +148,3 @@ The Maxpooling layer with convolutional layer and Dropout with fully connected l
 ## Simulation
 ### Is the car able to navigate correctly on test data?
 > No tire may leave the drivable portion of the track surface. The car may not pop up onto ledges or roll over any surfaces that would otherwise be considered unsafe (if humans were in the vehicle).
-
-[![Parisa Moosavinezhad](https://github.com/ParisaMousavi/CloneDrivingBehavior/blob/master/docpics/Histogram.png)](www.linkedin.com/in/parisa-moosavinezhad-48b4b149)
-
-Dillinger is a cloud-enabled, mobile-ready, offline-storage, AngularJS powered HTML5 Markdown editor.
-
-  - Type some Markdown on the left
-  - See HTML in the right
-  - Magic
-
-  - Import a HTML file and watch it magically convert to Markdown
-  - Drag and drop images (requires your Dropbox account be linked)
-
-
-You can also:
-  - Import and save files from GitHub, Dropbox, Google Drive and One Drive
-  - Drag and drop markdown and HTML files into Dillinger
-  - Export documents as Markdown, HTML and PDF
-
-Markdown is a lightweight markup language based on the formatting conventions that people naturally use in email.  As [John Gruber] writes on the [Markdown site][df1]
-
-> The overriding design goal for Markdown's
-> formatting syntax is to make it as readable
-> as possible. The idea is that a
-> Markdown-formatted document should be
-> publishable as-is, as plain text, without
-> looking like it's been marked up with tags
-> or formatting instructions.
-
-This text you see here is *actually* written in Markdown! To get a feel for Markdown's syntax, type some text into the left window and watch the results in the right.
-
-### Tech
-
-Dillinger uses a number of open source projects to work properly:
-
-* [AngularJS] - HTML enhanced for web apps!
-* [Ace Editor] - awesome web-based text editor
-* [markdown-it] - Markdown parser done right. Fast and easy to extend.
-* [Twitter Bootstrap] - great UI boilerplate for modern web apps
-* [node.js] - evented I/O for the backend
-* [Express] - fast node.js network app framework [@tjholowaychuk]
-* [Gulp] - the streaming build system
-* [Breakdance](http://breakdance.io) - HTML to Markdown converter
-* [jQuery] - duh
-
-And of course Dillinger itself is open source with a [public repository][dill]
- on GitHub.
-
-### Installation
-
-Dillinger requires [Node.js](https://nodejs.org/) v4+ to run.
-
-Install the dependencies and devDependencies and start the server.
-
-```sh
-$ cd dillinger
-$ npm install -d
-$ node app
-```
-
-For production environments...
-
-```sh
-$ npm install --production
-$ NODE_ENV=production node app
-```
-
-### Plugins
-
-Dillinger is currently extended with the following plugins. Instructions on how to use them in your own application are linked below.
-
-| Plugin | README |
-| ------ | ------ |
-| Dropbox | [plugins/dropbox/README.md][PlDb] |
-| Github | [plugins/github/README.md][PlGh] |
-| Google Drive | [plugins/googledrive/README.md][PlGd] |
-| OneDrive | [plugins/onedrive/README.md][PlOd] |
-| Medium | [plugins/medium/README.md][PlMe] |
-| Google Analytics | [plugins/googleanalytics/README.md][PlGa] |
-
-
-### Development
-
-Want to contribute? Great!
-
-Dillinger uses Gulp + Webpack for fast developing.
-Make a change in your file and instantanously see your updates!
-
-Open your favorite Terminal and run these commands.
-
-First Tab:
-```sh
-$ node app
-```
-
-Second Tab:
-```sh
-$ gulp watch
-```
-
-(optional) Third:
-```sh
-$ karma test
-```
-#### Building for source
-For production release:
-```sh
-$ gulp build --prod
-```
-Generating pre-built zip archives for distribution:
-```sh
-$ gulp build dist --prod
-```
-### Docker
-Dillinger is very easy to install and deploy in a Docker container.
-
-By default, the Docker will expose port 8080, so change this within the Dockerfile if necessary. When ready, simply use the Dockerfile to build the image.
-
-```sh
-cd dillinger
-docker build -t joemccann/dillinger:${package.json.version}
-```
-This will create the dillinger image and pull in the necessary dependencies. Be sure to swap out `${package.json.version}` with the actual version of Dillinger.
-
-Once done, run the Docker image and map the port to whatever you wish on your host. In this example, we simply map port 8000 of the host to port 8080 of the Docker (or whatever port was exposed in the Dockerfile):
-
-```sh
-docker run -d -p 8000:8080 --restart="always" <youruser>/dillinger:${package.json.version}
-```
-
-Verify the deployment by navigating to your server address in your preferred browser.
-
-```sh
-127.0.0.1:8000
-```
-
-#### Kubernetes + Google Cloud
-
-See [KUBERNETES.md](https://github.com/joemccann/dillinger/blob/master/KUBERNETES.md)
-
-
-### Todos
-
- - Write MORE Tests
- - Add Night Mode
-
-License
-----
-
-MIT
-
-
-**Free Software, Hell Yeah!**
-
-[//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
-
-
-   [dill]: <https://github.com/joemccann/dillinger>
-   [git-repo-url]: <https://github.com/joemccann/dillinger.git>
-   [john gruber]: <http://daringfireball.net>
-   [df1]: <http://daringfireball.net/projects/markdown/>
-   [markdown-it]: <https://github.com/markdown-it/markdown-it>
-   [Ace Editor]: <http://ace.ajax.org>
-   [node.js]: <http://nodejs.org>
-   [Twitter Bootstrap]: <http://twitter.github.com/bootstrap/>
-   [jQuery]: <http://jquery.com>
-   [@tjholowaychuk]: <http://twitter.com/tjholowaychuk>
-   [express]: <http://expressjs.com>
-   [AngularJS]: <http://angularjs.org>
-   [Gulp]: <http://gulpjs.com>
-
-   [PlDb]: <https://github.com/joemccann/dillinger/tree/master/plugins/dropbox/README.md>
-   [PlGh]: <https://github.com/joemccann/dillinger/tree/master/plugins/github/README.md>
-   [PlGd]: <https://github.com/joemccann/dillinger/tree/master/plugins/googledrive/README.md>
-   [PlOd]: <https://github.com/joemccann/dillinger/tree/master/plugins/onedrive/README.md>
-   [PlMe]: <https://github.com/joemccann/dillinger/tree/master/plugins/medium/README.md>
-   [PlGa]: <https://github.com/RahulHP/dillinger/blob/master/plugins/googleanalytics/README.md>
