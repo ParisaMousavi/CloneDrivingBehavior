@@ -141,8 +141,71 @@ steering_angle = float(model.predict(myimage, batch_size=1))
 ## Architecture and Training Documentation
 ### Is the solution design documented?
 > The README thoroughly discusses the approach taken for deriving and designing a model architecture fit for solving the given problem.
+
+The model of this project has been developed with Keras and is composed of the following layers.
+- Input layer with normalizing
+- Convolutional layer
+- Nonlinear layer
+- Fully connected layer
+- Maxpooling
+- Dropout
+
 ### Is the model architecture documented?
 > The README provides sufficient details of the characteristics and qualities of the architecture, such as the type of model used, the number of layers, the size of each layer. Visualizations emphasizing particular qualities of the architecture are encouraged.
+
+In the following the layers of the model are listed via summary function. I have highlighted the summary with blue to write my explanations to each layer with black color.
+
+---
+| Layer (type)  | Output Shape | Param # |
+| ------------- | ------------- | ------------- |
+| lambda_2 (Lambda)  | (None, 16, 32, 1)  | 0  |
+The input image to deep neural network model has the shape (16 x 32 x 1) as explained before because of memory efficiency I have resized the images.
+
+```sh
+model.add(Lambda(lambda x: x/127.5 - 1.,input_shape=(16,32,1)))
+```
+---
+| Layer (type)  | Output Shape | Param # |
+| ------------- | ------------- | ------------- |
+| conv2d_3 (Conv2D)  | (None, 14, 30, 8)  | 80  |
+The first convolutional layer with 3x3 kernel and 8 output filters.
+```sh
+model.add(Convolution2D(8, (3, 3), kernel_initializer='normal',padding='valid'))
+```
+---
+| Layer (type)  | Output Shape | Param # |
+| ------------- | ------------- | ------------- |
+| activation_4 (Activation)  |(None, 14, 30, 8) | 0  |
+Nonlinearity in the model.
+```sh
+model.add(Activation('relu'))
+```
+---
+| Layer (type)  | Output Shape | Param # |
+| ------------- | ------------- | ------------- |
+| max_pooling2d_3 (MaxPooling2  |(None, 7, 15, 8) | 0  |
+Prevent overfitting.
+```sh
+model.add(MaxPooling2D((2,2),padding='valid'))
+```
+---
+| Layer (type)  | Output Shape | Param # |
+| ------------- | ------------- | ------------- |
+| conv2d_4 (Conv2D) |(None, 5, 13, 8) | 584 |
+The second convolutional layer with 3x3 kernel and 8 output filters.
+```sh
+model.add(Convolution2D(8, (3, 3) ,kernel_initializer='normal',padding='valid'))
+```
+---
+| Layer (type)  | Output Shape | Param # |
+| ------------- | ------------- | ------------- |
+| activation_5 (Activation) | (None, 5, 13, 8) | 0 |
+Nonlinearity in the model.
+```sh
+model.add(Activation('relu'))
+```
+---
+
 ### Is the creation of the training dataset and training process documented?
 > The README describes how the model was trained and what the characteristics of the dataset are. Information such as how the dataset was generated and examples of images from the dataset must be included.
 ## Simulation
