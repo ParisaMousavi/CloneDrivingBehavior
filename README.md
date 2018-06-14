@@ -290,9 +290,10 @@ model.save('model.h5')
 ## Simulation
 ### Is the car able to navigate correctly on test data?
 > No tire may leave the drivable portion of the track surface. The car may not pop up onto ledges or roll over any surfaces that would otherwise be considered unsafe (if humans were in the vehicle).
+
 ![enter image description here](https://github.com/ParisaMousavi/CloneDrivingBehavior/blob/master/docpics/Result.png)
 [The implementation result](https://youtu.be/d2rwkX9rfCo)
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTk1Njg0ODk0NiwtMzQ1NTk0Mjc2LDEzNT
-Q0NzkyODYsMTA3MjIzOTI5NywtMTc2NjY3NDY2Nl19
+eyJoaXN0b3J5IjpbNTcxNTkyOTkyLC0zNDU1OTQyNzYsMTM1ND
+Q3OTI4NiwxMDcyMjM5Mjk3LC0xNzY2Njc0NjY2XX0=
 -->
