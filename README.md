@@ -196,6 +196,7 @@ model.add(MaxPooling2D((2,2),padding='valid'))
 | Layer (type)  | Output Shape | Param # |
 | ------------- | ------------- | ------------- |
 | conv2d_4 (Conv2D) |(None, 5, 13, 8) | 584 |
+
 The second convolutional layer with 3x3 kernel and 8 output filters.
 
 ```sh
@@ -205,6 +206,7 @@ model.add(Convolution2D(8, (3, 3) ,kernel_initializer='normal',padding='valid'))
 | Layer (type)  | Output Shape | Param # |
 | ------------- | ------------- | ------------- |
 | activation_5 (Activation) | (None, 5, 13, 8) | 0 |
+
 Nonlinearity in the model.
 
 ```sh
@@ -214,6 +216,7 @@ model.add(Activation('relu'))
 | Layer (type)  | Output Shape | Param # |
 | ------------- | ------------- | ------------- |
 | max_pooling2d_4 (MaxPooling2| (None, 2, 6, 8) | 0 |
+
 Prevent overfitting
 
 ```sh
@@ -223,6 +226,7 @@ model.add(MaxPooling2D((2,2),padding='valid'))
 | Layer (type)  | Output Shape | Param # |
 | ------------- | ------------- | ------------- |
 | dropout_2 (Dropout) | (None, 2, 6, 8) | 0 |
+
 Prevent overfitting
 
 ```sh
@@ -232,10 +236,9 @@ model.add(Dropout(0.2))
 | Layer (type)  | Output Shape | Param # |
 | ------------- | ------------- | ------------- |
 | flatten_2 (Flatten) | (None, 96) | 0 |
-Prevent overfitting
 
 ```sh
-model.add(Dropout(0.2))
+model.add(Flatten())
 ```
 ### Is the creation of the training dataset and training process documented?
 > The README describes how the model was trained and what the characteristics of the dataset are. Information such as how the dataset was generated and examples of images from the dataset must be included.
@@ -243,5 +246,6 @@ model.add(Dropout(0.2))
 ### Is the car able to navigate correctly on test data?
 > No tire may leave the drivable portion of the track surface. The car may not pop up onto ledges or roll over any surfaces that would otherwise be considered unsafe (if humans were in the vehicle).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTU3NjMyNTI3NiwtMTc2NjY3NDY2Nl19
+eyJoaXN0b3J5IjpbLTEwNjAyMTM0NDIsLTE3NjY2NzQ2NjZdfQ
+==
 -->
