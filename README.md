@@ -295,9 +295,12 @@ model.save('model.h5')
 
 [The vedio output can be seen here.](https://youtu.be/d2rwkX9rfCo)
 
+<iframe src="//www.youtube.com/embed/jglUWD3KMh4?portrait=0&color=333" frameborder="0" allowfullscreen width="400" height="200"></iframe>
+
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTA3Njc5ODIzNSwtMzQ1NTk0Mjc2LDEzNT
-Q0NzkyODYsMTA3MjIzOTI5NywtMTc2NjY3NDY2Nl19
+eyJoaXN0b3J5IjpbLTkwMjE4Mzc4LDEwNzY3OTgyMzUsLTM0NT
+U5NDI3NiwxMzU0NDc5Mjg2LDEwNzIyMzkyOTcsLTE3NjY2NzQ2
+NjZdfQ==
 -->
