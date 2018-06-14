@@ -240,12 +240,20 @@ model.add(Dropout(0.2))
 ```sh
 model.add(Flatten())
 ```
+---
+| Layer (type)  | Output Shape | Param # |
+| ------------- | ------------- | ------------- |
+| dense_3 (Dense) | (None, 50) | 4850 |
+
+The Fully connected layer
+```sh
+model.add(Flatten())
+```
 ### Is the creation of the training dataset and training process documented?
 > The README describes how the model was trained and what the characteristics of the dataset are. Information such as how the dataset was generated and examples of images from the dataset must be included.
 ## Simulation
 ### Is the car able to navigate correctly on test data?
 > No tire may leave the drivable portion of the track surface. The car may not pop up onto ledges or roll over any surfaces that would otherwise be considered unsafe (if humans were in the vehicle).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwNjAyMTM0NDIsLTE3NjY2NzQ2NjZdfQ
-==
+eyJoaXN0b3J5IjpbLTM5MTkyNjAyNCwtMTc2NjY3NDY2Nl19
 -->
