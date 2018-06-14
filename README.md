@@ -283,7 +283,7 @@ history_object = model.fit(X_train, Y_train, validation_split = 0.2,shuffle = Tr
 ```
 Finally, it can be saved for testing in simulator.
 ```sh
-history_object = model.fit(X_train, Y_train, validation_split = 0.2,shuffle = True, epochs = 5 , verbose=1 , batch_size=128)
+model.save('model.h5')
 ```
 ### Is the creation of the training dataset and training process documented?
 > The README describes how the model was trained and what the characteristics of the dataset are. Information such as how the dataset was generated and examples of images from the dataset must be included.
@@ -291,5 +291,5 @@ history_object = model.fit(X_train, Y_train, validation_split = 0.2,shuffle = Tr
 ### Is the car able to navigate correctly on test data?
 > No tire may leave the drivable portion of the track surface. The car may not pop up onto ledges or roll over any surfaces that would otherwise be considered unsafe (if humans were in the vehicle).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjA5MDUxODU2NiwtMTc2NjY3NDY2Nl19
+eyJoaXN0b3J5IjpbMTA3MjIzOTI5NywtMTc2NjY3NDY2Nl19
 -->
