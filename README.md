@@ -159,6 +159,7 @@ In the following the layers of the model are listed via summary function. I have
 | Layer (type)  | Output Shape | Param # |
 | ------------- | ------------- | ------------- |
 | lambda_2 (Lambda)  | (None, 16, 32, 1)  | 0  |
+
 The input image to deep neural network model has the shape (16 x 32 x 1) as explained before because of memory efficiency I have resized the images.
 
 ```sh
@@ -168,6 +169,7 @@ model.add(Lambda(lambda x: x/127.5 - 1.,input_shape=(16,32,1)))
 | Layer (type)  | Output Shape | Param # |
 | ------------- | ------------- | ------------- |
 | conv2d_3 (Conv2D)  | (None, 14, 30, 8)  | 80  |
+
 The first convolutional layer with 3x3 kernel and 8 output filters.
 ```sh
 model.add(Convolution2D(8, (3, 3), kernel_initializer='normal',padding='valid'))
@@ -176,6 +178,7 @@ model.add(Convolution2D(8, (3, 3), kernel_initializer='normal',padding='valid'))
 | Layer (type)  | Output Shape | Param # |
 | ------------- | ------------- | ------------- |
 | activation_4 (Activation)  |(None, 14, 30, 8) | 0  |
+
 Nonlinearity in the model.
 ```sh
 model.add(Activation('relu'))
@@ -184,6 +187,7 @@ model.add(Activation('relu'))
 | Layer (type)  | Output Shape | Param # |
 | ------------- | ------------- | ------------- |
 | max_pooling2d_3 (MaxPooling2  |(None, 7, 15, 8) | 0  |
+
 Prevent overfitting.
 ```sh
 model.add(MaxPooling2D((2,2),padding='valid'))
@@ -193,6 +197,7 @@ model.add(MaxPooling2D((2,2),padding='valid'))
 | ------------- | ------------- | ------------- |
 | conv2d_4 (Conv2D) |(None, 5, 13, 8) | 584 |
 The second convolutional layer with 3x3 kernel and 8 output filters.
+
 ```sh
 model.add(Convolution2D(8, (3, 3) ,kernel_initializer='normal',padding='valid'))
 ```
@@ -201,6 +206,7 @@ model.add(Convolution2D(8, (3, 3) ,kernel_initializer='normal',padding='valid'))
 | ------------- | ------------- | ------------- |
 | activation_5 (Activation) | (None, 5, 13, 8) | 0 |
 Nonlinearity in the model.
+
 ```sh
 model.add(Activation('relu'))
 ```
@@ -209,6 +215,7 @@ model.add(Activation('relu'))
 | ------------- | ------------- | ------------- |
 | max_pooling2d_4 (MaxPooling2| (None, 2, 6, 8) | 0 |
 Prevent overfitting
+
 ```sh
 model.add(MaxPooling2D((2,2),padding='valid'))
 ```
@@ -217,6 +224,7 @@ model.add(MaxPooling2D((2,2),padding='valid'))
 | ------------- | ------------- | ------------- |
 | dropout_2 (Dropout) | (None, 2, 6, 8) | 0 |
 Prevent overfitting
+
 ```sh
 model.add(Dropout(0.2))
 ```
@@ -226,5 +234,5 @@ model.add(Dropout(0.2))
 ### Is the car able to navigate correctly on test data?
 > No tire may leave the drivable portion of the track surface. The car may not pop up onto ledges or roll over any surfaces that would otherwise be considered unsafe (if humans were in the vehicle).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbOTkxMzIzMjU3LC0xNzY2Njc0NjY2XX0=
+eyJoaXN0b3J5IjpbNjQyMTQxNjUsLTE3NjY2NzQ2NjZdfQ==
 -->
