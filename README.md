@@ -277,11 +277,19 @@ For training the model I have used the Adam optimizer and it has been mentioned 
 ```sh
 model.compile(loss='mse', optimizer='adam')
 ```
+After training the model is trained with 5 epochs then it should be validated with 20% of the values of the dataset.
+```sh
+history_object = model.fit(X_train, Y_train, validation_split = 0.2,shuffle = True, epochs = 5 , verbose=1 , batch_size=128)
+```
+Finally, it can be saved for testing in simulator.
+```sh
+history_object = model.fit(X_train, Y_train, validation_split = 0.2,shuffle = True, epochs = 5 , verbose=1 , batch_size=128)
+```
 ### Is the creation of the training dataset and training process documented?
 > The README describes how the model was trained and what the characteristics of the dataset are. Information such as how the dataset was generated and examples of images from the dataset must be included.
 ## Simulation
 ### Is the car able to navigate correctly on test data?
 > No tire may leave the drivable portion of the track surface. The car may not pop up onto ledges or roll over any surfaces that would otherwise be considered unsafe (if humans were in the vehicle).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTI0NDI1NTU1OSwtMTc2NjY3NDY2Nl19
+eyJoaXN0b3J5IjpbMjA5MDUxODU2NiwtMTc2NjY3NDY2Nl19
 -->
