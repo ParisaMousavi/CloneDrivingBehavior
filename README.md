@@ -1,4 +1,4 @@
-# Use Deep Learning to Clone Driving Behavior
+﻿# Use Deep Learning to Clone Driving Behavior
 ## Required Files
 ### Are all required files submitted?
 > The submission includes a model.py file, drive.py, model.h5 a writeup report and video.mp4.
@@ -291,6 +291,7 @@ model.save('model.h5')
 ### Is the car able to navigate correctly on test data?
 > No tire may leave the drivable portion of the track surface. The car may not pop up onto ledges or roll over any surfaces that would otherwise be considered unsafe (if humans were in the vehicle).
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/d2rwkX9rfCo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 
 <!--stackedit_data:
