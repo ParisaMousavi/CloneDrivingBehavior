@@ -207,10 +207,10 @@ model.add(Activation('relu'))
 ---
 | Layer (type)  | Output Shape | Param # |
 | ------------- | ------------- | ------------- |
-| max_pooling2d_4 (MaxPooling2| (None, 5, 13, 8) | 0 |
-Nonlinearity in the model.
+| max_pooling2d_4 (MaxPooling2| (None, 2, 6, 8) | 0 |
+Prevent overfitting
 ```sh
-model.add(Activation('relu'))
+model.add(MaxPooling2D((2,2),padding='valid'))
 ```
 
 ### Is the creation of the training dataset and training process documented?
@@ -219,5 +219,5 @@ model.add(Activation('relu'))
 ### Is the car able to navigate correctly on test data?
 > No tire may leave the drivable portion of the track surface. The car may not pop up onto ledges or roll over any surfaces that would otherwise be considered unsafe (if humans were in the vehicle).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTU4NzYwMDkxNSwtMTc2NjY3NDY2Nl19
+eyJoaXN0b3J5IjpbMTAxNjUxNzM5LC0xNzY2Njc0NjY2XX0=
 -->
