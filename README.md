@@ -24,7 +24,7 @@ python drive.py model.h5
 > The code in model.py uses a Python generator, if needed, to generate data for training rather than storing the training data in memory. The model.py code is clearly organized, and comments are included where needed.
 
 I have commented the code the same as write-up.
-The Keras’s Model in the model.ipynb file is saved after training as model.h5 file, therefore it’s usable. The following code snippet is used for saving the model.
+The Kerasâ€™s Model in the model.ipynb file is saved after training as model.h5 file, therefore itâ€™s usable. The following code snippet is used for saving the model.
 ```sh
 model.save('model.h5')
 ```
@@ -77,7 +77,7 @@ history_object = model.fit(X_train, Y_train, validation_split = 0.2,shuffle = Tr
 ### Is the training data chosen appropriately?
 > Training data has been chosen to induce the desired behavior in the simulation (i.e. keeping the car on the track).
 
-For the training data the csv file and the captured images have been used. The training images, which I have used are the Udacity’s captured data because I couldn’t drive the car exactly in the middle of the road. 
+For the training data the csv file and the captured images have been used. The training images, which I have used are the Udacityâ€™s captured data because I couldnâ€™t drive the car exactly in the middle of the road. 
 I have used the center, left and right images and their steering value. According to the Udacity learning material I should have considered 0.2 to adjust the steering measurement for the side camera images. In the following are the steps to read and load data to dataset.
 ```sh
 images = []
@@ -96,7 +96,7 @@ Third, I used for loop and read all lines of csv file line by line and append ea
 for line in reader:
     lines.append(line)
 ```
-I extract four values from each row/line of csv file – name of center, left and right image and steering value. Since the left and right images need adjustment I have summed 0.2 to steering value or subtracted 0.2 from the steering value.
+I extract four values from each row/line of csv file â€“ name of center, left and right image and steering value. Since the left and right images need adjustment I have summed 0.2 to steering value or subtracted 0.2 from the steering value.
 ```sh
 for line in lines1:
     for i in range(3):
@@ -211,3 +211,6 @@ model.add(Activation('relu'))
 ## Simulation
 ### Is the car able to navigate correctly on test data?
 > No tire may leave the drivable portion of the track surface. The car may not pop up onto ledges or roll over any surfaces that would otherwise be considered unsafe (if humans were in the vehicle).
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTE3NjY2NzQ2NjZdfQ==
+-->
