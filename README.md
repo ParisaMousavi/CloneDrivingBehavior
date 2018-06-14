@@ -258,12 +258,20 @@ Nonlinearity in the model.
 ```sh
 model.add(Activation('relu'))
 ```
+---
+| Layer (type)  | Output Shape | Param # |
+| ------------- | ------------- | ------------- |
+| dense_4 (Dense) | (None, 1) | 51 |
 
+The Fully connected layer
+```sh
+model.add(Activation('relu'))
+```
 ### Is the creation of the training dataset and training process documented?
 > The README describes how the model was trained and what the characteristics of the dataset are. Information such as how the dataset was generated and examples of images from the dataset must be included.
 ## Simulation
 ### Is the car able to navigate correctly on test data?
 > No tire may leave the drivable portion of the track surface. The car may not pop up onto ledges or roll over any surfaces that would otherwise be considered unsafe (if humans were in the vehicle).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEzNjk5MzQ3OCwtMTc2NjY3NDY2Nl19
+eyJoaXN0b3J5IjpbLTc3MDQ4NjQ5MiwtMTc2NjY3NDY2Nl19
 -->
