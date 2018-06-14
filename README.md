@@ -218,7 +218,7 @@ model.add(MaxPooling2D((2,2),padding='valid'))
 | dropout_2 (Dropout) | (None, 2, 6, 8) | 0 |
 Prevent overfitting
 ```sh
-model.add(MaxPooling2D((2,2),padding='valid'))
+model.add(Dropout(0.2))
 ```
 ### Is the creation of the training dataset and training process documented?
 > The README describes how the model was trained and what the characteristics of the dataset are. Information such as how the dataset was generated and examples of images from the dataset must be included.
@@ -226,5 +226,5 @@ model.add(MaxPooling2D((2,2),padding='valid'))
 ### Is the car able to navigate correctly on test data?
 > No tire may leave the drivable portion of the track surface. The car may not pop up onto ledges or roll over any surfaces that would otherwise be considered unsafe (if humans were in the vehicle).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTc1OTM0NTUzOSwtMTc2NjY3NDY2Nl19
+eyJoaXN0b3J5IjpbOTkxMzIzMjU3LC0xNzY2Njc0NjY2XX0=
 -->
